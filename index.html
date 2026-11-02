@@ -29,6 +29,9 @@ label{white-space:nowrap}
 .edn{font-size:12px;color:#e05a00;font-weight:700}
 @media(max-width:560px){.shb{gap:6px;padding:6px}.col .row{gap:4px}button{padding:6px 8px}}
 @media print{*{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}html,body{width:210mm;height:297mm;overflow:hidden}.C.sel{outline:none!important;background:#fff!important}.no,.sh{display:none!important}body{background:#fff;padding:0!important}#ow{margin:0;height:auto!important;width:auto!important}#pw{transform:scale(1)!important;width:794px;zoom:1}@page{size:A4;margin:0}}
+#ai .aitab{border-radius:999px;padding:7px 13px}#ai .aitab.on{background:#7a3ad0;color:#fff;border-color:#7a3ad0;font-weight:700}
+#ai .aibox{border:1px solid #d9cdf3;border-radius:10px;padding:10px;margin-top:8px;background:#fbf9ff}#ai input:not([type]),#ai input[type=text]{font:inherit;padding:7px;border:1px solid #b9c3d3;border-radius:8px}
+#ai textarea{width:100%;box-sizing:border-box}
 </style><style id="ps"></style></head><body>
 <div class="pn no"><h3>수련계획표 만들기</h3>
 <input type="month" id="mo"><button id="rf" class="r">이 달 다시 채우기</button>
@@ -39,7 +42,34 @@ label{white-space:nowrap}
 <label style="font-size:12px;color:#666">오른쪽 위 그림 바꾸기 <input type="file" id="art" accept="image/*" style="width:150px"></label><button id="artr">계절 그림으로</button></div>
 <div id="ow"><div id="pw"></div></div>
 <div class="pn no"><span style="width:100%">달력 칸을 누르면 선택되고 아래에 편집 창이 열려요. 요일 전체 선택:</span>
-<span id="wd"></span><button id="mg">문구함 관리</button><button id="nt" class="b">📢 학부모 안내문 만들기</button></div>
+<span id="wd"></span><button id="mg">문구함 관리</button><button id="nt" class="b">📢 학부모 안내문 만들기</button><button id="aib" class="b" style="background:#7a3ad0;border-color:#7a3ad0">✨ AI 도우미 (미션지·안내문·답장)</button></div>
+<div id="ai" class="no" style="display:none;background:#fff;border-top:3px solid #7a3ad0;padding:10px">
+ <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center"><b style="font-size:16px;color:#5a2ab0;margin-right:6px">✨ 제미나이 AI 도우미</b>
+  <button class="aitab on" data-t="m">📝 미션지 만들기</button><button class="aitab" data-t="n">📢 안내문</button><button class="aitab" data-t="r">💬 학부모 답장</button><span id="aimsg" style="font-size:12px;color:#7a3ad0"></span></div>
+ <!-- 미션지 -->
+ <div class="aip" id="ai-m">
+  <div class="aibox"><b id="mt-title">미션 넣을 주차</b><div id="mwk" style="display:flex;gap:6px;flex-wrap:wrap;margin-top:6px"></div>
+   <textarea id="mhint" style="height:54px;margin-top:6px" placeholder="(선택) 이번 달 주제나 바라는 점 예) 겨울방학 앞두고 생활습관 / 감사 표현 위주로"></textarea>
+   <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:6px"><button id="mgen" class="b" style="background:#7a3ad0;border-color:#7a3ad0">✨ AI로 미션 만들기</button><button id="mimg">🎨 AI로 그림도 만들기</button><button id="mpng" class="b">PNG 저장</button><button id="mprt">인쇄/PDF</button><button id="mto">안내문에 미션 넣기</button></div>
+   <div style="font-size:12px;color:#888;margin-top:4px">미션 글은 아래 칸에서 직접 고쳐도 돼요. 그림은 칸 옆 [그림 바꾸기]로 내 사진·그림을 넣을 수도 있어요.</div></div>
+  <div id="medit"></div>
+  <div style="overflow:hidden;margin-top:8px" id="mow"><div id="mpw" style="transform-origin:0 0;width:794px"></div></div>
+ </div>
+ <!-- 안내문 -->
+ <div class="aip" id="ai-n" style="display:none"></div>
+ <!-- 학부모 답장 -->
+ <div class="aip" id="ai-r" style="display:none">
+  <div class="aibox"><b>학부모님이 보낸 메시지 (그대로 붙여넣기)</b>
+   <textarea id="rin" style="height:120px;margin-top:6px" placeholder="예) 관장님 안녕하세요~ 우리 지우가 요즘 도장 가기 싫다고 하는데 무슨 일이 있었을까요?"></textarea>
+   <b style="display:block;margin-top:8px">내가 하고 싶은 말 (선택)</b>
+   <textarea id="rmemo" style="height:60px;margin-top:6px" placeholder="예) 수업 때 친구랑 다툼이 조금 있었음. 오늘 따로 이야기 나눠보겠다고 전하기"></textarea>
+   <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-top:6px">
+    <label>말투 <select id="rtone"><option value="정중하고 따뜻하게">정중하고 따뜻하게</option><option value="친근하고 다정하게">친근하고 다정하게</option><option value="짧고 간단하게">짧고 간단하게</option></select></label>
+    <button id="rgen" class="b" style="background:#7a3ad0;border-color:#7a3ad0">✨ 답장 만들기</button><button id="ragain">다른 버전</button><button id="rcp">복사하기</button></div>
+   <textarea id="rout" style="height:220px;margin-top:8px;font-size:15px;line-height:1.5" placeholder="여기에 답장이 만들어져요. 고쳐서 복사하세요."></textarea></div>
+ </div>
+</div>
+
 <div id="np" class="pn no" style="display:none;align-items:stretch">
  <h3 id="nth">학부모 안내문</h3>
  <div style="width:100%;font-size:13px;color:#555">휴원·주말 행사·심사·특별 일정은 위 계획표에서 자동으로 뽑아요. 미션만 적어주세요.</div>
@@ -291,7 +321,7 @@ $('fb').onchange=()=>{S.fb=$('fb').value;save();render();pl();loadFont(S.fb).cat
 $('th').onchange=()=>{S.T[key()]=$('th').value;save();render()};
 $('art').onchange=e=>e.target.files[0]&&small(e.target.files[0],500,u=>{S.art=u;save();render()});
 $('artr').onclick=()=>{S.art=null;$('art').value='';save();render()};
-function setMonth(v){[Y,Mo]=v.split('-').map(Number);sel.clear();$('th').value=S.T[key()]||'auto';render();pl();if($('np').style.display!=='none')nload()}
+function setMonth(v){[Y,Mo]=v.split('-').map(Number);sel.clear();$('th').value=S.T[key()]||'auto';render();pl();if($('np').style.display!=='none')nload();if($('ai')&&$('ai').style.display!=='none'&&(S.G.aitab||'m')==='m')mload()}
 /* ================= 학부모 안내문 ================= */
 const GR={1:[['새해 복 많이 받으세요!🎍','희망찬 새해 첫 달, 우리 정도 친구들도 힘차게 출발합니다!'],['차가운 겨울바람 속에서도 아이들의 기합 소리는 뜨겁습니다🔥','새해에도 건강하고 씩씩하게 함께하겠습니다!']],
 2:[['아직 찬 바람이 불지만 조금씩 봄이 다가오고 있는 2월입니다🌱','한 학년을 마무리하는 우리 친구들을 힘껏 응원합니다!'],['설 명절 가족과 따뜻한 시간 보내셨나요?🧧','새 학년을 준비하는 2월, 마음도 몸도 튼튼하게 다져보겠습니다!']],
@@ -383,6 +413,122 @@ $('png').onclick=async()=>{const b=$('png');b.disabled=true;b.textContent='만�
   i.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg)})}finally{b.disabled=false;b.textContent='PNG 저장'}};
 $('prt').onclick=()=>{sel.clear();manage=false;render();setTimeout(print,150)};
 addEventListener('resize',render);
+/* ================= ✨ 제미나이 AI 도우미 (미션지 · 안내문 · 학부모 답장) ================= */
+async function gemCall(pr,o={}){const um=(S.G.gm||'').trim(),models=[...new Set([S.G.okModel,um&&!/2\.5/.test(um)?um:'',...GMODELS].filter(Boolean))];
+ const keys=[...new Set([S.G.gk,S.G.okKey,...GK0].filter(Boolean))];let last='';
+ for(const k of keys){let keyBad=false;
+  for(const m of models){const gc={temperature:o.temp??0.9};if(o.json)gc.responseMimeType='application/json';
+   const r=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(m)}:generateContent?key=${encodeURIComponent(k)}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{parts:[{text:pr}]}],generationConfig:gc})});
+   const j=await r.json().catch(()=>({}));
+   if(!r.ok){last=(j.error&&j.error.message)||String(r.status);
+    if(/api key|api_key|key not valid|invalid.*key|unauthenticated|permission/i.test(last)||r.status===401||r.status===403){keyBad=true;break}
+    if(r.status===404||/not found|no longer available|not supported|deprecated/i.test(last))continue;throw new Error(last)}
+   const t=(j.candidates?.[0]?.content?.parts||[]).map(p=>p.text||'').join('').trim();if(!t)throw new Error('빈 답이 왔어요');
+   S.G.okKey=k;S.G.okModel=m;save();return t}
+  if(!keyBad)break}
+ throw new Error(last||'연결 실패')}
+const GIMG=['gemini-nano-banana-2.1','gemini-3.8-flash-image','gemini-2.5-flash-image'];
+async function gemImage(pr){const keys=[...new Set([S.G.okKey,S.G.gk,...GK0].filter(Boolean))];let last='';
+ for(const k of keys){let keyBad=false;
+  for(const m of [...new Set([S.G.okImg,...GIMG].filter(Boolean))]){
+   const r=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(m)}:generateContent?key=${encodeURIComponent(k)}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{parts:[{text:pr}]}],generationConfig:{responseModalities:['TEXT','IMAGE']}})});
+   const j=await r.json().catch(()=>({}));
+   if(!r.ok){last=(j.error&&j.error.message)||String(r.status);if(/api key|api_key|key not valid|invalid.*key|unauthenticated/i.test(last)||r.status===401){keyBad=true;break}continue}
+   const p=(j.candidates?.[0]?.content?.parts||[]).find(p=>p.inlineData||p.inline_data);if(!p){last='그림이 안 왔어요';continue}
+   const d=p.inlineData||p.inline_data;S.G.okImg=m;S.G.okKey=k;return shrink(`data:${d.mimeType||d.mime_type||'image/png'};base64,${d.data}`,420)}
+  if(!keyBad)break}
+ throw new Error(last||'그림 만들기 실패')}
+function shrink(src,max){return new Promise(ok=>{const i=new Image();i.onload=()=>{const k=Math.min(1,max/Math.max(i.width,i.height)),c=document.createElement('canvas');c.width=Math.round(i.width*k);c.height=Math.round(i.height*k);c.getContext('2d').drawImage(i,0,0,c.width,c.height);ok(c.toDataURL('image/jpeg',.82))};i.onerror=()=>ok(src);i.src=src})}
+const aimsg=t=>$('aimsg').textContent=t;
+document.querySelectorAll('.aitab').forEach(b=>b.onclick=()=>aiTab(b.dataset.t));
+function aiTab(t){document.querySelectorAll('.aitab').forEach(b=>b.classList.toggle('on',b.dataset.t===t));for(const k of['m','n','r'])$('ai-'+k).style.display=k===t?'block':'none';
+ if(t==='n'){const np=$('np');if(np.parentNode!==$('ai-n'))$('ai-n').appendChild(np);np.style.display='flex';nload();if(!$('nout').value)notice()}
+ if(t==='m')mload();S.G.aitab=t;save()}
+$('aib').onclick=()=>{const a=$('ai'),sh=a.style.display==='none';a.style.display=sh?'block':'none';if(sh){aiTab(S.G.aitab||'m');a.scrollIntoView({behavior:'smooth'})}};
+/* ---------- 미션지 ---------- */
+if(!S.MX)S.MX={};if(!S.MH)S.MH=[];
+const MCOL=['#1a8a2a','#1a4ad8','#d81a1a','#7a3ad0','#e07a00'],MICO=['🍀','👣','🎒','⭐','🌈'],MBG=['#fff6e6','#eaf3ff','#ffeef0','#f3ecff','#fff8e0'],MBD=['#f0b040','#3a7af0','#e05a6a','#9a6ae0','#e0b000'];
+const MW=()=>weeks(Y,Mo).filter(w=>w[0]).map(w=>w.slice(0,5).filter(Boolean));
+const MS=()=>{const k=key();if(!S.MX[k]){const n=MW().length;S.MX[k]={sel:[...Array(n).keys()].filter(i=>i>0&&i<4),hint:'',it:{}}}return S.MX[k]};
+function mload(){const m=MS(),ws=MW();$('mt-title').textContent=`${Mo}월 미션 넣을 주차 (보통 2~4주차)`;
+ $('mwk').innerHTML=ws.map((d,i)=>`<label style="border:1px solid #c9b8ef;border-radius:8px;padding:5px 8px;background:${m.sel.includes(i)?'#efe6ff':'#fff'}"><input type="checkbox" data-mw="${i}" ${m.sel.includes(i)?'checked':''}> ${i+1}주차 (${sd(d[0])}~${sd(d[d.length-1])})</label>`).join('');
+ $('mhint').value=m.hint||'';medit();mrender()}
+$('mwk').onchange=e=>{const i=+e.target.dataset.mw,m=MS();if(e.target.checked){if(!m.sel.includes(i))m.sel.push(i)}else m.sel=m.sel.filter(x=>x!==i);m.sel.sort((a,b)=>a-b);save();mload()};
+$('mhint').onchange=()=>{MS().hint=$('mhint').value;save()};
+function medit(){const m=MS(),ws=MW();
+ $('medit').innerHTML=m.sel.map((i,n)=>{const it=m.it[i]||{};return `<div class="aibox" style="border-left:5px solid ${MCOL[n%5]}"><b style="color:${MCOL[n%5]}">${MICO[n%5]} ${Mo}월 ${i+1}주차</b>
+  <div style="display:flex;gap:6px;margin-top:6px;flex-wrap:wrap"><input data-mi="${i}" data-f="cat" value="${esc(it.cat||'')}" placeholder="분류 예) 배려/생활" style="width:120px"><input data-mi="${i}" data-f="title" value="${esc(it.title||'')}" placeholder="미션 제목" style="flex:1;min-width:180px"></div>
+  <textarea data-mi="${i}" data-f="desc" style="height:48px;margin-top:6px" placeholder="미션 설명 (한두 줄)">${esc(it.desc||'')}</textarea>
+  <div style="display:flex;gap:6px;align-items:center;margin-top:4px">${it.img?`<img src="${it.img}" style="height:46px;border-radius:6px">`:''}<label style="font-size:12px">그림 바꾸기 <input type="file" accept="image/*" data-mimg="${i}" style="width:150px"></label>${it.img?`<button data-mrm="${i}">그림 빼기</button>`:''}<button data-mone="${i}">🎨 이 칸 그림만 AI로</button></div></div>`}).join('')||'<div class="aibox">위에서 주차를 골라주세요.</div>'}
+$('medit').addEventListener('input',e=>{const t=e.target,i=t.dataset.mi;if(i==null)return;const m=MS();(m.it[i]=m.it[i]||{})[t.dataset.f]=t.value;save();mrender()});
+$('medit').addEventListener('change',async e=>{const t=e.target;if(t.dataset.mimg==null||!t.files[0])return;const i=t.dataset.mimg,fr=new FileReader();fr.onload=async()=>{const m=MS();(m.it[i]=m.it[i]||{}).img=await shrink(fr.result,420);save();medit();mrender()};fr.readAsDataURL(t.files[0])});
+$('medit').addEventListener('click',async e=>{const t=e.target;const m=MS();
+ if(t.dataset.mrm!=null){delete (m.it[t.dataset.mrm]||{}).img;save();medit();mrender()}
+ if(t.dataset.mone!=null){t.disabled=true;await mpaint([+t.dataset.mone]);t.disabled=false}});
+$('mgen').onclick=async()=>{const m=MS(),ws=MW();if(!m.sel.length)return alert('주차를 골라주세요');const b=$('mgen');b.disabled=true;aimsg('AI가 미션을 만드는 중…');
+ const pr=`너는 "용인대 정도태권도 2관"의 관장을 돕는 도우미야. 초등학생·유치부 아이들이 가정에서 실천하는 "라이프 스킬 정도 인성프로그램" ${Y}년 ${Mo}월 주차별 미션을 만들어줘.
+주차: ${m.sel.map(i=>`${i+1}주차(${sd(ws[i][0])}~${sd(ws[i][ws[i].length-1])})`).join(', ')}
+조건:
+- 주차마다 다른 영역: 배려/생활, 배려/예절, 자립/습관, 감사/효도, 책임/약속, 건강/안전, 공부/집중 등에서 골라 "큰분류/작은분류" 형식(예: 배려/생활).
+- 제목은 아이가 바로 알아듣는 행동 문장 12~18자 (예: 함께 쓰는 공간 깨끗하게 사용하기).
+- 설명은 부모님이 읽고 바로 이해하는 구체적인 행동 한두 문장 25~45자 (예: 식탁이나 세면대처럼 가족과 함께 쓰는 공간을 사용한 뒤 깔끔하게 정리하기).
+- ${Mo}월 계절·학교 일정(방학, 명절 등)에 어울리게. 매일 집에서 확인 가능한 작은 습관.
+- 최근 쓴 미션과 겹치지 않게: ${S.MH.slice(-24).join(' / ')||'없음'}
+${m.hint?'- 관장님 요청: '+m.hint:''}
+JSON 배열만 출력: [{"week":주차번호,"cat":"배려/생활","title":"...","desc":"..."}]`;
+ try{const t=await gemCall(pr,{json:true});let a=JSON.parse(t.replace(/^```json|```$/g,'').trim());if(!Array.isArray(a))a=a.missions||[];
+  m.sel.forEach((i,n)=>{const x=a.find(o=>+o.week===i+1)||a[n];if(!x)return;const old=m.it[i]||{};m.it[i]={cat:x.cat||'',title:x.title||'',desc:x.desc||'',img:old.img};S.MH.push(x.title)});
+  S.MH=S.MH.slice(-60);save();medit();mrender();aimsg('완료! 고칠 곳은 아래 칸에서 바로 고치면 돼요.')}catch(e){aimsg('실패: '+e.message)}finally{b.disabled=false}};
+async function mpaint(list){const m=MS();let ok=0,err='';
+ for(const i of list){const it=m.it[i];if(!it||!it.title)continue;aimsg(`${i+1}주차 그림 만드는 중…`);
+  try{it.img=await gemImage(`따뜻한 수채화 느낌의 귀여운 아동 일러스트. 흰 태권도 도복에 검은 띠를 맨 한국 어린이(갈색 머리, 큰 눈, 밝은 표정)가 집에서 "${it.title}" 하는 장면: ${it.desc}. 밝고 부드러운 색감, 세로 4:5 구도, 글자·숫자 넣지 말 것.`);ok++;save();medit();mrender()}catch(e){err=e.message}}
+ aimsg(ok?`그림 ${ok}개 완료!`:'그림 실패: '+err+' (그림 바꾸기로 직접 넣을 수 있어요)')}
+$('mimg').onclick=async()=>{const b=$('mimg');b.disabled=true;await mpaint(MS().sel);b.disabled=false};
+$('mto').onclick=()=>{const m=MS(),n=N(),cnt=mweeks().length;n.w=n.w||[];for(let i=0;i<cnt;i++){const it=m.it[i];if(m.sel.includes(i)&&it&&it.title)n.w[i]=(it.cat?`[${it.cat}] `:'')+it.title}save();aiTab('n');notice();aimsg('안내문에 미션을 넣었어요')};
+function msheet(){const m=MS(),ws=MW(),L=m.sel.length||1,top=290,bot=168,bh=Math.floor((1123-top-bot)/L)-14;
+ const blk=m.sel.map((i,n)=>{const it=m.it[i]||{},c=MCOL[n%5],d=ws[i];
+  return `<div style="position:relative;height:${bh}px;margin:0 22px 14px;display:flex;gap:10px">
+   <div style="width:${Math.round(bh*.6)}px;border-radius:10px;overflow:hidden;background:${MBG[n%5]};display:flex;align-items:center;justify-content:center;font-size:${Math.round(bh*.3)}px;flex:none">${it.img?`<img src="${it.img}" style="width:100%;height:100%;object-fit:cover">`:MICO[n%5]}</div>
+   <div style="flex:1;display:flex;flex-direction:column;min-width:0">
+    <div style="font-weight:900;font-size:${L>3?17:20}px;line-height:1.25;color:${c}">${MICO[n%5]} ${Mo}월 ${i+1}주차 : [${esc(it.cat||'분류')}] ${esc(it.title||'미션 제목')}</div>
+    <div style="border:1.5px solid #888;border-radius:12px;margin-top:5px;padding:6px 12px;font-size:${L>3?13:15}px;line-height:1.4;color:#333">${esc(it.desc||'미션 설명')}</div>
+    <div style="font-size:11px;color:#444;margin:5px 4px">평소에 잘 지켜진다면 O로 체크해주세요</div>
+    <div style="display:flex;border:1.5px solid ${c};border-radius:10px;overflow:hidden;margin-top:auto">${d.map((dt,q)=>`<div style="flex:1;min-width:0;${q?`border-left:1px solid ${c};`:''}"><div style="background:${c};color:#fff;font-weight:700;font-size:12.5px;white-space:nowrap;text-align:center;padding:5px 0">${DN[dt.getDay()]}요일 (${sd(dt)})</div><div style="height:${L>3?30:40}px;display:flex;align-items:center;justify-content:center;font-size:18px;color:#333">[ &nbsp; &nbsp; ]</div></div>`).join('')}</div>
+   </div>
+   <div style="width:150px;flex:none;border:1.5px solid ${MBD[n%5]};background:${MBG[n%5]};border-radius:12px;padding:10px;font-size:15px;line-height:1.6;color:#333">✍️ ${i+1}주차<br>부모님의 따뜻한<br>한 줄 응원 :<div style="border-bottom:1.5px solid #3a6ad0;margin-top:${Math.max(18,bh-150)}px"></div></div></div>`}).join('');
+ return `<div style="width:794px;height:1123px;position:relative;background:#fff;font-family:'Noto Sans KR','Malgun Gothic',sans-serif;border:10px solid #1a2a6a;border-radius:18px;box-sizing:border-box;overflow:hidden">
+  <div style="text-align:center;padding-top:16px;font-size:26px;font-weight:900;color:#111">용인대 정도태권도 2관</div>
+  <div style="text-align:center;font-size:30px;font-weight:900;margin-top:4px">🏆 <span style="color:#1a4ad8;font-size:40px">${Mo}월</span> 라이프 스킬 <span style="color:#1a4ad8">정도</span> 인성프로그램 <span style="color:#1a4ad8">미션</span> 🏆</div>
+  <div style="margin:10px auto 0;width:520px;border:1.5px solid #3a6ad0;border-radius:24px;text-align:center;padding:7px;font-size:14px;color:#1a3a8a">도장에서의 교육이 가정에서도 이어질 수 있도록 함께 해주세요!</div>
+  <div style="margin:10px auto 18px;width:340px;border:1.5px solid #3a6ad0;border-radius:24px;padding:8px 18px;font-size:16px;font-weight:700;color:#1a3a8a">이름 : <span style="display:inline-block;width:220px;border-bottom:1.5px solid #333"></span></div>
+  ${blk}
+  <div style="position:absolute;left:22px;right:22px;bottom:52px;height:120px;border:1.5px solid #f0b040;border-radius:14px;background:#fffaf0;display:flex;align-items:center;gap:14px;padding:0 20px;box-sizing:border-box">
+   <div style="font-size:54px">🏆</div><div style="flex:1"><div style="font-size:21px;font-weight:900;color:#222">꼭 읽어주세요! 인성프로그램 안내</div><div style="font-size:14px;color:#333;line-height:1.6;margin-top:4px">이 미션은 아이의 일상 속 작은 습관을 함께 응원하기 위한 활동입니다.<br>잘했는지 평가하기보다 자연스럽게 실천한 순간을 따뜻하게 칭찬해 주세요.</div></div>
+   <div style="width:96px;height:96px;border-radius:50%;background:#ffef8a;border:3px dashed #e03a2a;color:#e03a2a;font-weight:900;font-size:19px;display:flex;align-items:center;justify-content:center;text-align:center;line-height:1.2">스티커<br>지급!</div></div>
+  <div style="position:absolute;left:0;right:0;bottom:0;height:44px;background:#1a2a6a;color:#fff;font-size:16px;font-weight:700;display:flex;align-items:center;justify-content:center">가정에서 가장 잘 보이는 곳에 붙여두시고 매일 아이와 편안하게 이야기 나눠 주세요!</div></div>`}
+function mrender(){const w=$('mow').clientWidth||794,k=Math.min(1,w/794);$('mpw').style.transform=`scale(${k})`;$('mow').style.height=Math.ceil(1123*k)+'px';$('mpw').innerHTML=msheet()}
+$('mpng').onclick=()=>{const svg=`<svg xmlns="http://www.w3.org/2000/svg" width="1588" height="2246" viewBox="0 0 794 1123"><foreignObject width="794" height="1123"><div xmlns="http://www.w3.org/1999/xhtml">${msheet()}</div></foreignObject></svg>`;
+ const i=new Image();i.onload=()=>setTimeout(()=>{const c=document.createElement('canvas');c.width=1588;c.height=2246;const x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,1588,2246);x.drawImage(i,0,0,1588,2246);c.toBlob(bl=>{const a=document.createElement('a');a.href=URL.createObjectURL(bl);a.download=`mission_${key()}.png`;a.click()})},300);
+ i.onerror=()=>alert('PNG 저장에 실패했어요. 인쇄/PDF를 써주세요.');i.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg)};
+$('mprt').onclick=()=>{const w=open('','_blank');if(!w)return alert('팝업이 막혔어요');w.document.write(`<!DOCTYPE html><html><head><meta charset="utf-8"><title>${Mo}월 미션지</title><style>@page{size:A4;margin:0}body{margin:0}*{-webkit-print-color-adjust:exact;print-color-adjust:exact}</style></head><body>${msheet()}</body></html>`);w.document.close();setTimeout(()=>w.print(),500)};
+addEventListener('resize',()=>{if($('ai').style.display!=='none')mrender()});
+/* ---------- 학부모 답장 ---------- */
+async function reply(again){const t=$('rin').value.trim();if(!t)return alert('학부모님 메시지를 붙여넣어 주세요');const b=$('rgen');b.disabled=true;$('ragain').disabled=true;aimsg('답장 쓰는 중…');
+ const pr=`너는 "용인대 정도태권도 2관" 관장이야. 학부모님이 카카오톡으로 보낸 메시지에 관장으로서 답장을 써줘.
+- 말투: ${$('rtone').value}. 존댓말, 학부모님을 존중하고 아이를 아끼는 마음이 느껴지게.
+- 카톡 답장답게 너무 길지 않게(3~7문장), 이모지는 1~2개만.
+- 모르는 사실(날짜, 시간, 금액, 아이 상황 등)은 지어내지 말고, 필요하면 [ ] 칸으로 비워 둬.
+- 걱정이나 불만이면 먼저 공감하고, 도장에서 할 수 있는 구체적인 행동을 약속해.
+${$('rmemo').value.trim()?'- 관장님이 꼭 전하고 싶은 내용: '+$('rmemo').value.trim():''}
+${again&&$('rout').value?'- 아래 이전 답장과 다른 표현으로 새로 써줘:\n'+$('rout').value:''}
+설명 없이 답장 문장만 출력해.
+
+[학부모님 메시지]
+${t}`;
+ try{$('rout').value=await gemCall(pr,{temp:again?1.1:0.8});aimsg('완료! 확인하고 복사해서 보내세요.')}catch(e){aimsg('실패: '+e.message)}finally{b.disabled=false;$('ragain').disabled=false}}
+$('rgen').onclick=()=>reply(false);$('ragain').onclick=()=>reply(true);
+$('rcp').onclick=async()=>{const t=$('rout').value;try{await navigator.clipboard.writeText(t)}catch(e){$('rout').select();document.execCommand('copy')}$('rcp').textContent='복사됨 ✓';setTimeout(()=>$('rcp').textContent='복사하기',1500)};
+
 const t=new Date();if(t.getDate()>=25)t.setMonth(t.getMonth()+1,1);$('mo').value=t.getFullYear()+'-'+pad(t.getMonth()+1);setMonth($('mo').value);
 loadFont(S.ft).catch(()=>{});if(S.fb!==S.ft)loadFont(S.fb).catch(()=>{});
 </script></body></html>
